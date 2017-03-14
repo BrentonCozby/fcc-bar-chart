@@ -1,0 +1,22 @@
+{
+  "name": "fcc-bar-chart",
+  "version": "1.0.0",
+  "description": "Basic bar chart using the D3.js libary",
+  "main": "index.html",
+  "author": "Brenton Cozby",
+  "license": "MIT",
+  "scripts": {
+    "babel": "babel -w js/main.js -o js/main-compiled.js",
+    "watchify": "watchify js/main-compiled.js -o js/bundle.js",
+    "watch-js": "yarn babel & yarn watchify"
+  },
+  "dependencies": {
+    "d3": "^4.7.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.0",
+    "watchify": "^3.9.0"
+  }
+}
