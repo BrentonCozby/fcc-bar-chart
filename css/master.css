@@ -19,14 +19,15 @@ body {
     left: 20px;
     padding: 10px;
     background-color: #fff;
+    visibility: hidden;
 }
 
 #info .GDP {
     font-size: 2rem;
 }
 
-#info .GDP:before {
-    content: '$';
+#info .GDP:after {
+    content: ' billion';
 }
 
 .bar {
@@ -36,14 +37,4 @@ body {
 
 .bar:hover {
     background-color: red;
-}
-
-.bar .text {
-    visibility: hidden;
-    background-color: #000;
-}
-
-.bar:hover .text,
-.bar:active .text {
-    visibility: visible;
 }

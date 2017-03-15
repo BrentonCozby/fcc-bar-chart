@@ -7,15 +7,34 @@ var _d = require('d3');
 var url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
 
 function displayInfoOnHover() {
+    var info = document.querySelector('#info');
     var dateElement = document.querySelector('.date');
     var GDPElement = document.querySelector('.GDP');
 
     document.querySelectorAll('.bar').forEach(function (bar) {
         bar.addEventListener('mouseover', function (e) {
+            info.style.visibility = 'visible';
             dateElement.textContent = e.target.dataset.date;
             GDPElement.textContent = e.target.dataset.gdp;
         });
+
+        bar.addEventListener('mouseleave', function (e) {
+            info.style.visibility = 'hidden';
+        });
     });
+}
+
+function formatMoney(num) {
+    var decimal = String(num).split('.')[1];
+    var wholeNum = String(num).split('.')[0].split('').reverse().map(function (digit, index) {
+        if ((index + 1) % 3 === 0) return ',' + digit;
+        return digit;
+    }).reverse().join('');
+
+    var result = ('$' + wholeNum + (decimal ? '.' + decimal : '')).split('');
+    if (result[1] === ',') result.splice(1, 1);
+
+    return result.join('');
 }
 
 function drawChart(data) {
@@ -43,7 +62,7 @@ function drawChart(data) {
     }).attr('data-date', function (d) {
         return d[0];
     }).attr('data-gdp', function (d) {
-        return d[1];
+        return formatMoney(d[1]);
     });
 
     displayInfoOnHover();

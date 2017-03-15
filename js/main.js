@@ -8,15 +8,39 @@ import {
 const url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json'
 
 function displayInfoOnHover() {
+    const info = document.querySelector('#info')
     const dateElement = document.querySelector('.date')
     const GDPElement = document.querySelector('.GDP')
 
     document.querySelectorAll('.bar').forEach(bar => {
         bar.addEventListener('mouseover', e => {
+            info.style.visibility = 'visible'
             dateElement.textContent = e.target.dataset.date
             GDPElement.textContent = e.target.dataset.gdp
         })
+
+        bar.addEventListener('mouseleave', e => {
+            info.style.visibility = 'hidden'
+        })
     })
+}
+
+function formatMoney(num) {
+    const decimal = String(num).split('.')[1]
+    const wholeNum = String(num).split('.')[0]
+        .split('')
+        .reverse()
+        .map((digit, index) => {
+            if((index + 1 ) % 3 === 0) return ',' + digit
+            return digit
+        })
+        .reverse()
+        .join('')
+
+    let result = ('$' + wholeNum + (decimal ? '.' + decimal : '')).split('')
+    if(result[1] === ',') result.splice(1, 1)
+
+    return result.join('')
 }
 
 function drawChart(data) {
@@ -51,7 +75,7 @@ function drawChart(data) {
                 `translateX(${ i * barWidth }px)`
             ))
             .attr('data-date', d => d[0])
-            .attr('data-gdp', d => d[1])
+            .attr('data-gdp', d => formatMoney(d[1]))
 
     displayInfoOnHover()
 }
