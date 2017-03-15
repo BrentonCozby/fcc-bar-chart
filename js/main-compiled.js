@@ -1,7 +1,5 @@
 'use strict';
 
-require('babel-polyfill');
-
 var _d = require('d3');
 
 var url = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
